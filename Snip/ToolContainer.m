@@ -63,7 +63,7 @@
     [super drawRect:dirtyRect];
     NSBezierPath *bgPath = [NSBezierPath bezierPathWithRoundedRect:self.bounds xRadius:3 yRadius:3];
     [bgPath setClip];
-    [[NSColor colorWithCalibratedWhite:1.0 alpha:0.3f] setFill];
+    [[NSColor colorWithCalibratedWhite:1.0 alpha:1.0f] setFill];
     NSRectFill(self.bounds);
     // Drawing code here.
 }
