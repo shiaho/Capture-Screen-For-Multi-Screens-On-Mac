@@ -7,16 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "SnipManager.h"
 
 @interface AppDelegate ()
 
-@property(weak) IBOutlet NSWindow *window;
 @end
 
 @implementation AppDelegate
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
+    [[SnipManager sharedInstance] startCapture];
 }
 
 - (void)applicationWillTerminate:(NSNotification *)aNotification {

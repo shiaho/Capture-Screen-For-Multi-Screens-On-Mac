@@ -7,7 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "AppDelegate.h"
+#import "CaptureHandler.h"
+
+CaptureHandler* ch;
 
 int main(int argc, const char *argv[]) {
-    return NSApplicationMain(argc, argv);
+    NSApplication* app = NSApplication.sharedApplication;
+    AppDelegate* appDelegate = AppDelegate.new;
+    app.delegate = appDelegate;
+    ch = [[CaptureHandler alloc] init];
+    (void)app.run;
+    return 0;
 }
