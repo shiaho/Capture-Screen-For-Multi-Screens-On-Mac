@@ -11,6 +11,7 @@
 #import "SnipUtil.h"
 #import "SnipView.h"
 #import "AutoHeightTextView.h"
+#import <stdio.h>
 
 const int kAdjustKnown = 8;
 
@@ -531,10 +532,22 @@ const int kAdjustKnown = 8;
     [self.originImage unlockFocus];
 
     //再设置后面要用到得 props属性
-    NSDictionary *imageProps = @{NSImageCompressionFactor : @(1.0)};
+    //NSDictionary *imageProps = @{NSImageCompressionFactor : @(1.0)};
 
     //之后 转化为NSData 以便存到文件中
-    NSData *imageData = [bits representationUsingType:NSJPEGFileType properties:imageProps];
+    NSData *imageData = [bits representationUsingType:NSPNGFileType properties:nil];
+    // Convert to Base64 data
+    NSData *base64Data = [imageData base64EncodedDataWithOptions:NSDataBase64EncodingEndLineWithCarriageReturn];
+    char *str = alloca(sizeof(char) * ([base64Data length] + 1));
+    const char *data = [base64Data bytes];
+    int i = 0;
+    for (; i < [base64Data length]; i ++) {
+        str[i] = data[i];
+    }
+    str[i] = '\0';
+    printf("data:image/png;base64,%s", str);
+    
+    NSLog(@"imageData length: %lu, base64Data length: %lu, base64Str length: %lu", [imageData length], [base64Data length]);
     NSImage *pasteImage = [[NSImage alloc] initWithData:imageData];
     if (pasteImage != nil) {
         NSPasteboard *pasteBoard = [NSPasteboard generalPasteboard];
